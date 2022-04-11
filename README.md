@@ -2,11 +2,39 @@
 GitHub Action get secret with specific key from encrypted SOPS yaml file
 
 ## Features
-- Only support Azure Key Vault
+- support Azure Key Vault, Age
+- hide secret from SOPS yaml file when read it
+
+![](docs/screenshot.png)
 
 ## Usage
 
-### Azure Key Vault
+### Using Age
+
+Set the secrets name of Age Private Key:
+
+```yml
+steps:
+  - uses: actions/checkout@v3
+  - uses: mildronize/actions-get-secret-sops@v1
+    id: sops
+    with:
+      path: "examples/data.age-enc.yaml"                     
+      property-path: ".scope_a.app_service.app1"              
+      decrypting-key: ${{ secrets.Age_SOPS_github_action }}                 
+      sops-version: '3.7.2'
+  - run: echo "${{ steps.sops.outputs.secret }}"
+```
+
+### Using Azure Key Vault
+
+When you create Azure Credential with:
+
+```bash
+az ad sp create-for-rbac -n "my-service-principal-name" --role Contributor --scopes /subscriptions/xxxxxxx
+```
+
+it will generate json, the structure of secret:
 
 ```json
 {
@@ -17,19 +45,21 @@ GitHub Action get secret with specific key from encrypted SOPS yaml file
 }
 ```
 
+Set the secrets name `Azure_Credential` or name what you want.
+
 ```yaml
 steps:
-  - uses: mildronize/actions-get-secret-sops/azure@main
+  - uses: actions/checkout@v3
+  - uses: mildronize/actions-get-secret-sops/azure@v1
     id: sops
     with:
-      path: "azure.enc.yaml"                    # Encrypted SOPS yaml path
-      property-path: ".property"                # jq/yq expression syntax for getting a particular value
-      decrypting-key: ${{ secrets.credential }} # A credential using to decrypt a Encrypted SOPS yaml file
+      path: "azure.enc.yaml"                          # Encrypted SOPS yaml path
+      property-path: ".property"                      # jq/yq expression syntax for getting a particular value
+      decrypting-key: ${{ secrets.Azure_Credential }} # A credential using to decrypt a Encrypted SOPS yaml file
       sops-version: '3.7.2'
 
   - run: echo "${{ steps.sops.outputs.secret }}"
 ```
-
 
 # SOPS 101
 
@@ -59,8 +89,10 @@ AGE-SECRET-KEY-15YXVYTPWNT4UF3KY05K27LZN2SAT83SJKX7UH4MXQEQAWRWPFNYSDHK860
 **DO NOT PUBLISH AGE SECRET KEY** (This is for example in this repo only)
 
 ```
-sops --encrypt --age age1js5yl37ghup68pzf8f2kutf6xtuwc4m6lpha0llgmcup93q3sp9qtfwvr8 test.yaml > test.enc.yaml
+sops --encrypt --age age1js5yl37ghup68pzf8f2kutf6xtuwc4m6lpha0llgmcup93q3sp9qtfwvr8 examples/data.yaml > examples/data.age-enc.yaml
 ```
+
+Set GitHub Action Secret with Age Secret key
 
 ## Encrypt with Azure Key Vault
 

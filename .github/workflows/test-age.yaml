@@ -1,0 +1,26 @@
+name: "Test SOPS with Age"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - action.yml
+
+env: 
+  expected_result: This is Super secret 
+
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: mildronize/actions-get-secret-sops@main
+        id: sops
+        with:
+          path: "examples/data.age-enc.yaml"                     
+          property-path: ".scope_a.app_service.app1"              
+          decrypting-key: ${{ secrets.Age_SOPS_github_action }}                 
+          sops-version: '3.7.2'
+      - run: |
+          node ./scripts/compare.js "${{ steps.sops.outputs.secret }}" "${{ env.expected_result }}"
