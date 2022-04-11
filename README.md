@@ -61,7 +61,7 @@ steps:
     id: sops
     with:
       path: "azure.enc.yaml"                          # Encrypted SOPS yaml path
-      property-path: ".property"                      # jq/yq expression syntax for getting a particular value
+      property-path: ".property"                      # yq/jq expression syntax for getting a particular value
       decrypting-key: ${{ secrets.Azure_Credential }} # A credential using to decrypt a Encrypted SOPS yaml file
       sops-version: '3.7.2'
 

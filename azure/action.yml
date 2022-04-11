@@ -1,12 +1,12 @@
 name: 'Get Secrets from Encrypted SOPS'
-description: 'Simple GitHub Action Helper to extract Azure Service Principal from secrets'
+description: 'GitHub Action get secrets from Encrypted SOPS yaml file (Azure)'
 author: 'Thada Wangthammang'
 inputs:
   path:
     description: 'Encrypted SOPS yaml path'
     required: true
   property-path:
-    description: 'jq/yq expression syntax for getting a particular value'
+    description: 'yq/jq expression syntax for getting a particular value'
     required: true
   decrypting-key:
     description: 'A credential using to decrypt a Encrypted SOPS yaml file'
