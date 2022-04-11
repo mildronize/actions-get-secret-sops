@@ -1,0 +1,19 @@
+scope_a:
+    app_service:
+        app1: ENC[AES256_GCM,data:H/H9Ed1R5kYga3mJJ5+NAVW35Ro=,iv:IbY1zZDOuE7E+z0Z5wSi6sstGog35mvr0AtUaPrlsGQ=,tag:saSwkqt6T+scchd7oQm9Fw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv:
+        - vault_url: https://kv-github-action-sops.vault.azure.net
+          name: sops-key
+          version: cabcd0f57d0640a9ba91620f36c2a61b
+          created_at: "2022-04-11T08:40:33Z"
+          enc: 2HbgFMtAvVZ8tb3BKYZzOzclYeSEl8wTt9t0qIvm3TVW936EiiSGoKR0ZqdTuPiW0J42HJZ7mcCu-EROxmAGxxwbydlTewXbB_jmHV_-6H29IHhxv04K2EWoFVh2sk-zcwTUjFVg8yQsN33Oi0yK8fLJ8Yvvn0hQmbq423kYsTsZz4cjz0ZvShtk3Tci2ZzruQELmnDtO6o3kKDwRmz2zyWBo2AlcpwYh90jbrusNS0_d37Nwx_XuRtmvNqBmS-_Wa0qRbo0CfZwNv2EcfwXuGMBTS0CAqj2SjF8osXpb-LshLFExnhE3a0b0uYmSI4G9mxnBWzbSzjnL2-E-BztgA
+    hc_vault: []
+    age: []
+    lastmodified: "2022-04-11T08:40:36Z"
+    mac: ENC[AES256_GCM,data:O3ev3qGA7hYlAtF8c66MP3z3Dnh75uTl7C9TuxpJ3asVFkDLOQn2q38IIQE3TTatRtDrUgHnAwqL9iSxLYzUdA45EJV4rg2kwTqT2syIDiAMl/Pako1W9uGIvi4yEX3/h2jrUJMrMMLp05HukngC5/zx3A/QXP52WU/rkftPGhA=,iv:Z8AS9fM7YQ0ReW4ELAX13Sat/RZcYE7AibH0u7iH+X4=,tag:lhk7GDo6Cr/YUyo5x/ZW8A==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.7.2

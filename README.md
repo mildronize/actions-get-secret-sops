@@ -36,8 +36,30 @@ steps:
 
 ## Encrypt using Age
 
+Install age
+
 ```
-sops --encrypt --age [AGE KEY] test.yaml > test.enc.yaml
+brew install age
+```
+
+Generate Age Key
+
+```
+age-keygen -o key.txt
+```
+
+The contain in file `key.txt` :
+
+```
+# created: 2022-04-11T15:36:32+07:00
+# public key: age1js5yl37ghup68pzf8f2kutf6xtuwc4m6lpha0llgmcup93q3sp9qtfwvr8
+AGE-SECRET-KEY-15YXVYTPWNT4UF3KY05K27LZN2SAT83SJKX7UH4MXQEQAWRWPFNYSDHK860
+```
+
+**DO NOT PUBLISH AGE SECRET KEY** (This is for example in this repo only)
+
+```
+sops --encrypt --age age1js5yl37ghup68pzf8f2kutf6xtuwc4m6lpha0llgmcup93q3sp9qtfwvr8 test.yaml > test.enc.yaml
 ```
 
 ## Encrypt with Azure Key Vault

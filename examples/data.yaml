@@ -1,0 +1,3 @@
+scope_a: 
+  app_service: 
+    app1: This is Super secret

@@ -94,5 +94,5 @@ runs:
       shell: bash
       
 branding:
-  color: "black"
+  color: "gray-dark"
   icon: "unlock"  
