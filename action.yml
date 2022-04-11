@@ -1,5 +1,5 @@
 name: 'Get Secrets from Encrypted SOPS'
-description: 'Simple GitHub Action Helper to extract Azure Service Principal from secrets'
+description: 'GitHub Action get secrets from Encrypted SOPS yaml file'
 author: 'Thada Wangthammang'
 inputs:
   path:
