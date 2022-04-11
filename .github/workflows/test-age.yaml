@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - action.yml
+    # paths:
+    #   - action.yml
 
 env: 
   expected_result: This is Super secret 

@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - azure/action.yml
+    # paths:
+    #   - azure/action.yml
 
 env: 
   expected_result: This is Super secret 
