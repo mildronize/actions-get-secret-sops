@@ -19,7 +19,7 @@ inputs:
 outputs:
   secret:
     description: "The decrypted secret getting from SOPS"
-    value: "${{ steps.secret.output.result }}"
+    value: "${{ steps.secret.outputs.result }}"
 
 runs:
   using: "composite"
@@ -84,7 +84,7 @@ runs:
       uses: mildronize/actions-yq-secret@main
       id: secret
       with:
-        cmd: yq '${{ env.property-path }}' ${{ env.mildronize_action_secret_file }}'
+        cmd: yq '${{ inputs.property-path }}' ${{ env.mildronize_action_decrypted_sops_file }}
         sensitive: true
 
     - name: Clean tmp files
