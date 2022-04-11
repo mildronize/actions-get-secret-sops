@@ -1,0 +1,6 @@
+{
+  "appId": "<some-uuid>",
+  "displayName": "my-service-principal-name",
+  "password": "<some-uuid>",
+  "tenant": "<tenant-id>"
+}

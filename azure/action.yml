@@ -1,0 +1,98 @@
+name: "Get Secrets from Encrypted SOPS"
+description: "Simple GitHub Action Helper to extract Azure Service Principal from secrets"
+author: "Thada Wangthammang"
+inputs:
+  path:
+    description: "Encrypted SOPS yaml path"
+    required: true
+  property-path:
+    description: "jq/yq expression syntax for getting a particular value"
+    required: true
+  decrypting-key:
+    description: "A credential using to decrypt a Encrypted SOPS yaml file"
+    required: true
+  sops-version:
+    description: 'Version of sops'
+    required: true
+    default: 'latest'
+
+outputs:
+  secret:
+    description: "The decrypted secret getting from SOPS"
+    value: "${{ steps.secret.output.result }}"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set secret filename
+      run: |
+        echo "mildronize_action_secret_file=secrets-$(date +%s).json" >> $GITHUB_ENV
+        echo "mildronize_action_decrypted_sops_file=sops-$(date +%s).yaml" >> $GITHUB_ENV
+      shell: bash
+
+    - name: "Get Secrets to file"
+      run: echo '${{ inputs.decrypting-key }}' > ${{ env.mildronize_action_secret_file }}
+      shell: bash
+
+    # Get Azure Service Principal
+
+    - name: Get appId
+      id: appId
+      uses: mildronize/actions-yq-secret@main
+      with:
+        cmd: yq '.appId' ${{ env.mildronize_action_secret_file }}
+
+    - name: get tenant
+      id: tenant
+      uses: mildronize/actions-yq-secret@main
+      with:
+        cmd: yq '.tenant' ${{ env.mildronize_action_secret_file }}
+
+    - name: get display name
+      id: displayName
+      uses: mildronize/actions-yq-secret@main
+      with:
+        cmd: yq '.displayName' ${{ env.mildronize_action_secret_file }}
+
+    - name: get Password
+      id: password
+      uses: mildronize/actions-yq-secret@main
+      with:
+        cmd: yq '.password' ${{ env.mildronize_action_secret_file }}
+        sensitive: true
+
+    # Start SOPS
+
+    - name: Install Sops
+      uses: mdgreenwald/mozilla-sops-action@v1.2.0
+      with:
+        version: "${{ inputs.sops-version }}"
+
+    - run: echo "Decrypting SOP using key name = ${{ steps.displayName.output.result }}"
+      shell: bash
+
+    - name: Decrypt secrets
+      run:
+        sops --decrypt "${{ inputs.path }}" > ${{ env.mildronize_action_decrypted_sops_file }}
+      shell: bash
+      env:
+        AZURE_CLIENT_ID: "${{ steps.appId.outputs.result }}"
+        AZURE_TENANT_ID: "${{ steps.tenant.outputs.result }}"
+        AZURE_CLIENT_SECRET: "${{ steps.password.outputs.result }}"
+
+    - name: Get the key from decrypted SOPS file
+      uses: mildronize/actions-yq-secret@main
+      id: secret
+      with:
+        cmd: yq '${{ env.property-path }}' ${{ env.mildronize_action_secret_file }}'
+        sensitive: true
+
+    - name: Clean tmp files
+      run: |
+        rm -f ${{ env.mildronize_action_secret_file }}
+        rm -f ${{ env.mildronize_action_decrypted_sops_file }}
+      shell: bash
+      
+branding:
+  color: "black"
+  icon: "unlock"  
