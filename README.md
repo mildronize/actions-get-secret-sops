@@ -63,6 +63,7 @@ steps:
 
 # SOPS 101
 
+Checkout the main repo for full documentation: https://github.com/mozilla/sops
 
 ## Encrypt using Age
 
