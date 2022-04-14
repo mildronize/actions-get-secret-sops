@@ -5,8 +5,8 @@ GitHub Action get secret with specific key from encrypted SOPS yaml file
 
 | Encryption Method | Status |
 |-------------------|--------|
-| Age               | [![Test SOPS with Age](https://github.com/mildronize/actions-get-secret-sops/actions/workflows/test-age.yaml/badge.svg)](https://github.com/mildronize/actions-get-secret-sops/actions/workflows/test-age.yaml)   |
-| Azure Key Vault   | [![Test SOPS with Azure Key Vault](https://github.com/mildronize/actions-get-secret-sops/actions/workflows/test-azure-key-vault.yaml/badge.svg)](https://github.com/mildronize/actions-get-secret-sops/actions/workflows/test-azure-key-vault.yaml)  |
+| Age               | [![Test SOPS with Age](https://github.com/mildronize/actions-get-secret-sops/actions/workflows/test-sops-age.yaml/badge.svg)](https://github.com/mildronize/actions-get-secret-sops/actions/workflows/test-sops-age.yaml)   |
+| Azure Key Vault   | [![Test SOPS with Azure Key Vault](https://github.com/mildronize/actions-get-secret-sops/actions/workflows/test-sops-azure-key-vault.yaml/badge.svg)](https://github.com/mildronize/actions-get-secret-sops/actions/workflows/test-sops-azure-key-vault.yaml)  |
 
 ## Features
 - Support Azure Key Vault, Age
