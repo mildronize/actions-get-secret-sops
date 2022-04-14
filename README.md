@@ -1,5 +1,5 @@
 # actions-get-secret-sops
-GitHub Action get secret with specific key from encrypted SOPS yaml file
+GitHub Action get secret with specific key from encrypted SOPS yaml file.
 
 ## Build Status (GitHub Actions)
 
@@ -10,6 +10,7 @@ GitHub Action get secret with specific key from encrypted SOPS yaml file
 
 ## Features
 - Support Azure Key Vault, Age
+- Only support Linux Runner
 - Hide secret from SOPS yaml file when read it
 
 ![](docs/screenshot.png)
