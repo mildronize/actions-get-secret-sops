@@ -23,7 +23,7 @@ Set the secrets name of Age Private Key:
 ```yml
 steps:
   - uses: actions/checkout@v3
-  - uses: mildronize/actions-get-secret-sops@v1
+  - uses: mildronize/actions-get-secret-sops@v1.1
     id: sops
     with:
       path: "examples/data.age-enc.yaml"                     
@@ -57,7 +57,7 @@ Set the secrets name `Azure_Credential` or name what you want.
 ```yaml
 steps:
   - uses: actions/checkout@v3
-  - uses: mildronize/actions-get-secret-sops/azure@v1
+  - uses: mildronize/actions-get-secret-sops/azure@v1.1
     id: sops
     with:
       path: "azure.enc.yaml"                          # Encrypted SOPS yaml path
