@@ -41,12 +41,14 @@ runs:
       uses: mildronize/actions-yq-secret@main
       with:
         cmd: yq '.appId' ${{ env.mildronize_action_secret_file_azure }}
+        sensitive: true
 
     - name: get tenant
       id: tenant
       uses: mildronize/actions-yq-secret@main
       with:
         cmd: yq '.tenant' ${{ env.mildronize_action_secret_file_azure }}
+        sensitive: true
 
     - name: get display name
       id: displayName
@@ -68,7 +70,7 @@ runs:
       with:
         version: '${{ inputs.sops-version }}'
 
-    - run: echo "Decrypting SOP using key name = ${{ steps.displayName.output.result }}"
+    - run: echo "Decrypting SOP using key name = ${{ steps.displayName.outputs.result }}"
       shell: bash
 
     - name: Decrypt secrets

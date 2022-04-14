@@ -68,6 +68,10 @@ steps:
   - run: echo "${{ steps.sops.outputs.secret }}"
 ```
 
+## Hiding Secrets from Logs
+
+This action uses GitHub Action's built-in masking, so all variables will automatically be masked (hidden) from log. However, if someone has the permission to edit your workflows, then they are able to read and therefore write secrets to somewhere else just like normal GitHub Secrets, it means the secrets can be exposed.
+
 # SOPS 101
 
 Checkout the main repo for full documentation: https://github.com/mozilla/sops
