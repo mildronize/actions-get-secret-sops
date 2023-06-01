@@ -75,12 +75,18 @@ runs:
 
     - name: Decrypt secrets
       run:
-        sops --decrypt "${{ inputs.path }}" > ${{ env.mildronize_action_decrypted_sops_file_azure }}
+        sops --decrypt "${{ inputs.path }}" > ${{ env.mildronize_action_decrypted_sops_file_azure }} > sops_debug 2>&1
       shell: bash
       env:
         AZURE_CLIENT_ID: '${{ steps.appId.outputs.result }}'
         AZURE_TENANT_ID: '${{ steps.tenant.outputs.result }}'
         AZURE_CLIENT_SECRET: '${{ steps.password.outputs.result }}'
+
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with: 
+        name: sops_debug
+        path: sops_debug
 
     - name: Get the key from decrypted SOPS file
       uses: mildronize/actions-yq-secret@main
